@@ -54,6 +54,6 @@ $ cu -s <speed> -l /dev/ttyUSB<number>
 ```
 
 The <speed> can usually be 9600, but ZMP RoboCar uses the practical max speed
-of RS-232C, 115200. The <number> is the logical number corresponding to each
-serial cable connected to your host computer. When you are using only one, it
-should be 0.
+of RS-232C, 115200. The unit of speeds is bps.
+The <number> is the logical number corresponding to each serial cable connected
+to your host computer. When you are using only one, it should be 0.
