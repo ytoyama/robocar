@@ -17,6 +17,6 @@ int main()
   rc.init();
   rc.SetServoEnable(1);
   rc.SetSteerAngle(30);
-  usleep(250 * 1000);
+  usleep(250 * 1000); // somehow it waits for a while
   rc.SetServoEnable(0);
 }
