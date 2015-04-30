@@ -57,3 +57,18 @@ The <speed> can usually be 9600, but ZMP RoboCar uses the practical max speed
 of RS-232C, 115200. The unit of speeds is bps.
 The <number> is the logical number corresponding to each serial cable connected
 to your host computer. When you are using only one, it should be 0.
+
+# Installing i386 packages on x86_64 Ubuntu
+```
+$ apt-get install <package name>:i386
+```
+Substitue the name of package you want for the <package name>.
+
+# Creating a symbolic link to a missing library
+Somehow the linker, ld could not find the installed library,
+/usr/lib/i386-linux-gnu/libxml.so.2 .
+So I created a symbolic link to it in the directory where RoboCar's libraries
+are with the following command.
+```
+$ ln -s /usr/lib/i386-linux-gnu/libxml.so.2 ~/lib/zmp/libxml2.so
+```
