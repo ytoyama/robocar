@@ -65,10 +65,11 @@ $ apt-get install <package name>:i386
 Substitue the name of package you want for the <package name>.
 
 # Creating a symbolic link to a missing library
-Somehow the linker, ld could not find the installed library,
-/usr/lib/i386-linux-gnu/libxml.so.2 .
-So I created a symbolic link to it in the directory where RoboCar's libraries
-are with the following command.
+The linker, ld differentiates the installed library,
+/usr/lib/i386-linux-gnu/libxml2.so.2 from libxml2.so .
+So I created a symbolic link to it in the same directory with the following
+command.
 ```
-$ ln -s /usr/lib/i386-linux-gnu/libxml.so.2 ~/lib/zmp/libxml2.so
+$ cd /usr/lib/i386-linux-gnu
+$ ln -s libxml2.so.2 libxml2.so
 ```
