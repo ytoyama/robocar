@@ -11,7 +11,7 @@ uchar2ushort(unsigned char c) {
 }
 
 unsigned long
-get_gs_pixel(Display *disp, char k) {
+get_gs_pixel(Display *disp, unsigned char k) {
   XColor color = {
     .red = uchar2ushort(k),
     .green = uchar2ushort(k),
@@ -27,41 +27,32 @@ get_gs_pixel(Display *disp, char k) {
 }
 
 int
-main() {
-  Display *disp;
-  Window win;
-  GC gc;
-  //XSetWindowAttributes att;
-  XPoint points[] = {
-    200, 100,
-    200, 200,
-    250, 150,
-    300, 100,
-    300, 200
-  };
-  unsigned long black, white;
+main(int argc, char **argv) {
+  if (argc != 2) {
+    fprintf(stderr, "usage: %s <filename>\n", argv[0]);
+    exit(1);
+  }
 
-  disp = XOpenDisplay(NULL);
-
-  black = XBlackPixel(disp, 0);
-  white = XWhitePixel(disp, 0);
-
-  win = XCreateSimpleWindow(disp, RootWindow(disp, 0), 200, 50, 400, 300, 2,
-      white, white);
-
-  //att.override_redirect = 1;
-
-  //XChangeWindowAttributes(dips, win, CWOverrideRedirect, &att);
+  Display *disp = XOpenDisplay(NULL);
+  Window win = XCreateSimpleWindow(disp, RootWindow(disp, 0), 200, 50, 400,
+      300, 2, XWhitePixel(disp, 0), XWhitePixel(disp, 0));
   XMapWindow(disp, win);
-  XFlush(disp);
 
-  gc = XCreateGC(disp, win, 0, 0);
+  GC gc = XCreateGC(disp, win, 0, 0);
   
-  for (int y = 0; y < 100; y++)
-    for (int x = 0; x < 100; x++) {
-      XSetForeground(disp, gc, get_gs_pixel(disp, x + y));
-      XDrawPoint(disp, win, gc, x, y);
+  FILE *fp = fopen(argv[1], "rb");
+  if (fp) {
+    for (int y = 0; y < 240; y++) {
+      for (int x = 0; x < 640; x++) {
+        XSetForeground(disp, gc, get_gs_pixel(disp, fgetc(fp)));
+        XDrawPoint(disp, win, gc, x, y);
+      }
     }
+    fclose(fp);
+  } else {
+    fprintf(stderr, "ERROR: failed to open a file, '%s'\n", argv[1]);
+    exit(1);
+  }
 
   XFlush(disp);
 
