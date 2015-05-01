@@ -73,3 +73,10 @@ command.
 $ cd /usr/lib/i386-linux-gnu
 $ ln -s libxml2.so.2 libxml2.so
 ```
+
+# X Window System programming on Ubuntu
+You need the headers for Xlib.
+```
+$ apt-get install xorg-dev
+```
+Then, they should appear in /usr/include/X11 .

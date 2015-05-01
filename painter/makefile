@@ -1,3 +1,5 @@
+CC = clang
+
 RM = rm -rf
 SYSTEM != uname
 
@@ -7,8 +9,8 @@ PROGS = painter
 INCDIR = -I/usr/local/include
 LIBDIR = -L/usr/local/lib
 .elif ${SYSTEM} == Linux
-INCDIR = -I/usr/local/include
-LIBDIR = -L/usr/local/lib
+INCDIR = -I/usr/include
+LIBDIR = -L/usr/lib
 .endif
 LIBS = -lX11
 SRCS =
@@ -16,7 +18,7 @@ SRCS =
 all: ${PROGS}
 
 .c:
-	cc -o ${.TARGET} ${.ALLSRC} ${SRCS} ${INCDIR} ${LIBDIR} ${LIBS}
+	${CC} -o ${.TARGET} ${.ALLSRC} ${SRCS} ${INCDIR} ${LIBDIR} ${LIBS}
 
 clean:
 	${RM} ${PROGS} *.o a.out *.core *.a
