@@ -1,7 +1,13 @@
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 #include "RcControl.h"
 #include "IpmManager.h"
-#include <unistd.h>
-#include <string.h>
 
 using namespace zmp::zrc;
 
@@ -36,8 +42,15 @@ main() {
       uchar *data = new uchar[length];
       uchar *p = data;
       memcpy(data, ipmm.ImageData(), length);
+
+      int fd;
+      if ((fd = open("my_picture.raw", O_WRONLY | O_CREAT)) != -1) {
+        write(fd, data, length);
+        close(fd);
+      } else
+        puts("ERROR: failed to open a file");
     }
-    printf("Hello, the end of a cycle!\n");
+    puts("Hello, the end of a cycle!");
   }
 
   return 0;
