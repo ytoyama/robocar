@@ -1,4 +1,5 @@
 CC = clang
+CFLAGS = -Wall
 
 RM = rm -rf
 SYSTEM != uname
@@ -18,7 +19,7 @@ SRCS =
 all: ${PROGS}
 
 .c:
-	${CC} -o ${.TARGET} ${.ALLSRC} ${SRCS} ${INCDIR} ${LIBDIR} ${LIBS}
+	${CC} ${CFLAGS} -o ${.TARGET} ${.ALLSRC} ${SRCS} ${INCDIR} ${LIBDIR} ${LIBS}
 
 clean:
 	${RM} ${PROGS} *.o a.out *.core *.a
