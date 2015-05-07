@@ -58,13 +58,13 @@ of RS-232C, 115200. The unit of speeds is bps.
 The <number> is the logical number corresponding to each serial cable connected
 to your host computer. When you are using only one, it should be 0.
 
-# Installing i386 packages on x86_64 Ubuntu
+## Installing i386 packages on x86_64 Ubuntu
 ```
 $ apt-get install <package name>:i386
 ```
 Substitue the name of package you want for the <package name>.
 
-# Creating a symbolic link to a missing library
+## Creating a symbolic link to a missing library
 The linker, ld differentiates the installed library,
 /usr/lib/i386-linux-gnu/libxml2.so.2 from libxml2.so .
 So I created a symbolic link to it in the same directory with the following
@@ -74,8 +74,8 @@ $ cd /usr/lib/i386-linux-gnu
 $ ln -s libxml2.so.2 libxml2.so
 ```
 
-# X Window System programming on Ubuntu
-You need the headers for Xlib.
+## X Window System programming on Ubuntu
+You need the headers for Xlib, which are Xlib.h and Xutil.h.
 ```
 $ apt-get install xorg-dev
 ```
