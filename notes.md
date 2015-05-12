@@ -80,3 +80,35 @@ You need the headers for Xlib, which are Xlib.h and Xutil.h.
 $ apt-get install xorg-dev
 ```
 Then, they should appear in /usr/include/X11 .
+
+
+## IMAPCAR initialization problem
+written by raviqqe on 2015/05/12
+
+One day, I wrote a program which takes pictures using IMAPCAR board on my
+RoboCar and it worked well.
+
+Few days after, I wrote another program with bugs which does almost the same
+but a little different thing. Then, I executed it on my RoboCar and of course
+it didn't work because of the bugs. After soon, I executed the previous one,
+which should work well but it didn't.
+
+I haven't understand what is the cause of the problem. But, I found out it
+works when the IMAPCAR board is reseted before its execution. So, I added a
+subroutine to my program which initialize the whole system using the built-in
+command prepared by its manufacturer, `ipm_serial`.
+
+```c++
+void
+init_system() {
+  system("ipm_serial S 0x04 0");
+  system("ipm_serial S 0x01 0");
+  usleep(250 * 1000);
+  system("ipm_serial S 0x04 1");
+  system("ipm_serial S 0x01 1");
+  system("ipm_serial R 0x01");
+}
+``` 
+
+Refer to the RoboCar manual about the meaning of each commands. This function
+is based on the one in a sample program in the manual.
